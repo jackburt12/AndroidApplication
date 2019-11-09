@@ -30,7 +30,7 @@
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/input_email"
                 android:textColor="@color/white"
-                android:textColorHint="@color/colorBackgroundGrey"
+                android:textColorHint="#BBB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
@@ -47,7 +47,7 @@
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/input_password"
                 android:textColor="@color/white"
-                android:textColorHint="@color/colorBackgroundGrey"
+                android:textColorHint="#BBB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
