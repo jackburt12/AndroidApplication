@@ -2,6 +2,7 @@ package jackburt.me.uk.application;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -10,12 +11,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.FacebookSdk;
+import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -33,12 +40,27 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText emailText, passwordText;
     Button loginButton;
-    TextView forgotPassword, signupLink;
+    Button forgotPassword, signupLink;
+    SignInButton googleLogin;
+    LoginButton facebookLogin;
+    Switch darkMode;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);//will hide the title
+        getSupportActionBar().hide(); //hide the title bar
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.LightTheme);
+        }
+
+        FacebookSdk.fullyInitialize();
         setContentView(R.layout.activity_login);
+
+
 
 
         emailText = findViewById(R.id.input_email);
@@ -46,6 +68,17 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.btn_login);
         forgotPassword = findViewById(R.id.forgot_password);
         signupLink = findViewById(R.id.link_signup);
+        facebookLogin = findViewById(R.id.login_facebook);
+        googleLogin = findViewById(R.id.login_google);
+        darkMode = findViewById(R.id.dark_mode);
+
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            darkMode.setChecked(true);
+        } else {
+            darkMode.setChecked(false);
+        }
+
+        googleLogin.setColorScheme(SignInButton.COLOR_DARK);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -62,6 +95,58 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        darkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(final CompoundButton compoundButton, boolean isChecked) {
+
+                if(!darkMode.isPressed()) {
+                    return;
+                }
+
+                String ableType;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                final boolean enabled = (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
+                if(enabled) {
+                    ableType = "disable";
+                } else {
+                    ableType = "enable";
+                }
+                builder.setTitle("Dark Mode");
+                builder.setMessage("Would you like to " +ableType+ " dark mode?");
+                builder.setCancelable(true);
+                builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        if(enabled) {
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        } else {
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        }
+
+
+                        dialogInterface.dismiss();
+                        finish();
+                        startActivity(new Intent(LoginActivity.this, LoginActivity.this.getClass()));
+
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        darkMode.setChecked(enabled);
+                        dialogInterface.dismiss();
+
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
 
 
         signupLink.setOnClickListener(new View.OnClickListener() {

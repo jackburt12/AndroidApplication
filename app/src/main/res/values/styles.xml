@@ -1,11 +1,40 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->
+        <item name="colorPrimary">#000</item>
+        <item name="colorPrimaryDark">#000</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorHint">#888</item>
+    </style>
+
+    <style name="LightTheme" parent="AppTheme">
+        <item name="textColor">#000000</item>
+        <item name="metaTextColor">#606060</item>
+        <item name="contrastTextColor">#ffffff</item>
+        <item name="bgColor">#ffffff</item>
+        <item name="elementHighEmph">#6200ee</item>
+        <item name="elementMedEmph">#a666ff</item>
+        <item name="elementFocused">#d2b3ff</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="boxBackgroundColor">#eee</item>
+    </style>
+
+    <style name="DarkTheme" parent="AppTheme">
+        <item name="textColor">#ffffff</item>
+        <item name="metaTextColor">#aeaeae</item>
+        <item name="contrastTextColor">#ffffff</item>
+        <item name="bgColor">#121212</item>
+        <item name="elementHighEmph">#03dac6</item>
+        <item name="elementMedEmph">#4ffceb</item>
+        <item name="elementFocused">#cdfef9</item>
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryDark">#03b09f</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="boxBackgroundColor">#333</item>
     </style>
 
 </resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="bgColor" format="color"/>
+    <attr name="textColor" format="color"/>
+    <attr name="metaTextColor" format="color"/>
+    <attr name="contrastTextColor" format="color"/>
+    <attr name="elementHighEmph" format="color"/>
+    <attr name="elementMedEmph" format="color"/>
+    <attr name="elementFocused" format="color"/>
+    <attr name="boxBackgroundColor" format="color"/>
+</resources>
